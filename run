@@ -1,0 +1,124 @@
+#!/bin/bash -e
+
+PROJECT_HOME="$(cd "$(dirname "$0")"; pwd)"
+SCRIPT_NAME=run
+SCRIPT_VERSION=1.00
+
+printUsage() {
+    echo "$SCRIPT_NAME $SCRIPT_VERSION - Angular Spring Rest Demo development script"
+    echo ""
+    echo "Usage:"
+    echo ""
+    echo "    $SCRIPT_NAME [tasks]"
+    echo ""
+    echo "Several tasks may be specified separated by spaces:"
+    echo ""
+    echo "    build          - mvn clean install"
+    echo "    run            - runs http server"
+    echo "    sync-assets    - starts watching app changes and syncs into target/classes/static "
+    echo ""
+    echo "    git-info                - prints git info"
+    echo "    git-log                 - prints git log: one line per commit"
+    echo "    git-log-tail [n]        - prints last n numbered git log lines (default n is 32)"
+    echo "    git-nth-commit-hash  n  - ouputs hash of n-th commit"
+    echo ""
+    echo ""
+}
+
+build() {
+    cd $(dirname $0)
+    mvn -U clean install || exit $?
+}
+
+run() {
+    mvn spring-boot:run
+}
+
+}gitInfo() {
+    cd $(dirname $0)
+    echo ""
+    echo "    branch name  : $(git rev-parse --abbrev-ref HEAD)"
+    echo "    commit count : $(git rev-list HEAD --count)"
+    echo "    commit date  : $(git log -1 --date=iso --pretty=%ad)"
+    echo "    commit hash  : $(git log -1 --pretty=%H)"
+    echo ""
+}
+
+gitLog() {
+    cd $(dirname $0)
+    git log --date=iso --pretty="format:%ad %h [%an] ... %s"
+}
+
+gitLogTail() {
+    cd $(dirname $0)
+
+    LINES_TO_SHOW=32
+    if [ "$1" != "" ]; then
+        LINES_TO_SHOW=$1
+    fi
+
+    git log --date=iso --pretty="format:%ad %h [%an] ... %s" --reverse | nl | tail -n $LINES_TO_SHOW
+}
+
+syncAssets() {
+    ctrl_c_exit_code=130
+    mvn com.github.eirslett:frontend-maven-plugin:npm@webpack-watch \
+        || [ "$?" -eq "$ctrl_c_exit_code" ]
+}
+
+gitNthCommitHash() {
+    COMMIT_NR=$1
+    if [ $COMMIT_NR = "" ]; then
+        echo "ERROR: commit number not specified"
+        exit 1
+    fi
+
+    cd $(dirname $0)
+
+    MIN_COMMIT=1
+    MAX_COMMIT=$(git rev-list HEAD --count)
+
+    if [ $COMMIT_NR -lt $MIN_COMMIT ] || [ $COMMIT_NR -gt $MAX_COMMIT ]; then
+        echo "ERROR: invalid commit nr: $COMMIT_NR. Expected number [$MIN_COMMIT..$MAX_COMMIT]."
+        exit 1
+    fi
+
+    git rev-list HEAD | tail -n $COMMIT_NR | head -n 1
+}
+
+#-------------------------------------------------------------------------------------------------
+
+if [ $# -lt 1 ]; then
+    printUsage
+    exit 0
+fi
+
+while [ "$1" != "" ]
+do
+    case $1 in
+        build                ) build;                ;;
+        sync-assets          ) syncAssets            ;;
+        run                  ) run                   ;;
+        git-info             ) gitInfo;              ;;
+        git-log              ) gitLog;               ;;
+        git-log-tail         )
+            shift 1;
+            gitLogTail $1;
+        ;;
+        git-nth-commit-hash  )
+            shift 1;
+            gitNthCommitHash $1;
+        ;;
+        *                    )
+            echo "."
+            echo "."
+            echo ".    ERROR: unknown option '$1'"
+            echo "."
+            printUsage
+            exit 1
+        ;;
+    esac
+    shift 1;
+done
+
+exit 0
