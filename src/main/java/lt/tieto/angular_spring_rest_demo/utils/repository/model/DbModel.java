@@ -1,9 +1,7 @@
-package lt.tieto.angular_spring_rest_demo.core.repository.model;
+package lt.tieto.angular_spring_rest_demo.utils.repository.model;
 
-import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Persistable;
 
-@AllArgsConstructor
 public class DbModel implements Persistable<Long> {
 
     private Long id;

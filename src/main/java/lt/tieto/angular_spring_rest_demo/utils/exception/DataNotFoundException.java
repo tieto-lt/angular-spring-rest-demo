@@ -1,4 +1,4 @@
-package lt.tieto.angular_spring_rest_demo.core.exception;
+package lt.tieto.angular_spring_rest_demo.utils.exception;
 
 public class DataNotFoundException extends RuntimeException {
 

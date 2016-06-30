@@ -3,7 +3,7 @@ package lt.tieto.angular_spring_rest_demo.item.controller;
 import javax.validation.Valid;
 import java.util.List;
 
-import lt.tieto.angular_spring_rest_demo.core.controller.BaseController;
+import lt.tieto.angular_spring_rest_demo.utils.controller.BaseController;
 import lt.tieto.angular_spring_rest_demo.item.model.Item;
 import lt.tieto.angular_spring_rest_demo.item.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;

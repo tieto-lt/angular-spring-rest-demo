@@ -15,12 +15,12 @@ module.config(function($stateProvider, $urlRouterProvider) {
         url: "/",
         template: "<item-list></item-list>"
     })
-    .state('root.itemListNew', {
+    .state('root.itemNew', {
       url: "/new",
-      template: "<item-list-new-item></item-list-new-item>"
+      template: "<item-new></item-new>"
     })
-    .state('root.detailsItemList', {
+    .state('root.ItemDetails', {
       url: "/:id",
-      template: "<item-list-details></item-list-details>"
+      template: "<item-details></item-details>"
     });
 });

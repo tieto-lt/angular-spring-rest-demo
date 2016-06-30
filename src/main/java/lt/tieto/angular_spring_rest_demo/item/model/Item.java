@@ -4,29 +4,61 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
-import lombok.Builder;
-import lombok.Data;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
-@JsonDeserialize(builder = Item.ItemBuilder.class)
-@Data
-@Builder
 public class Item {
 
-    private final Long id;
+    private Long id;
 
     @NotNull
-    private final String name;
+    private String name;
 
     @Min(0)
-    private final Integer quantity;
+    private Integer quantity;
 
     @NotNull
     @Pattern(regexp="\\d*x\\d*")
-    private final String size;
+    private String size;
 
-    //For Lombok + Jackson json deserialization to work
-    @JsonPOJOBuilder(withPrefix = "")
-    public static final class ItemBuilder {}
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("name", name)
+                .append("quantity", quantity)
+                .append("size", size)
+                .toString();
+    }
 }

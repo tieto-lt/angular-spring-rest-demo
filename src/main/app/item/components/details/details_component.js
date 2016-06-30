@@ -52,7 +52,7 @@ function Controller($state, $stateParams, ItemService) {
 
 Controller.$inject = ['$state', '$stateParams', 'ItemService'];
 
-module.component('itemListDetails', {
+module.component('itemDetails', {
     controller: Controller,
     templateUrl: require('./details.html')
 });

@@ -10,7 +10,6 @@ This project will be used for **Month with IT** Tieto program to demonstrate an 
     - H2 in memory database which saves state to ./h2/database-dev
     - Liquibase for database migrations
     - Spring Data CRUD repository JDBC implementation: cz.jirutka.spring:spring-data-jdbc-repository
-    - Lombok for less Java boilerplate
     - Java Bean validation for server side validation
 - Frontend
     - Using Maven com.github.eirslett:frontend-maven-plugin to have separate frontend build
@@ -18,7 +17,7 @@ This project will be used for **Month with IT** Tieto program to demonstrate an 
     - Webpack to package libraries + custom code into single JS/CSS file.
     - AngularJS
     - Angular UI Router (not the default one)
-    - Angular Messages for front end validation
+    - Angular Messages for front-end validation
     - Bootstrap CSS components
     - SASS for custom styles
 
@@ -53,8 +52,31 @@ All frontend code is at `src/main/app`.
 Consider an example when we are building some kind of user management page.
 Each folder in `app` should represent a business unit e.g `user-management`, `news-feed` etc.
 `app/user-management/components` should contain separate components for that page. 
-E.g `app/user-management/components/list`, `app/user-management/components/new`, `app/user-management/components/update` etc.
-`app/user-management/services` should be used for API calls and maybe some business logic that should be present in UI and shared accross components.
+
+.
+├── app.js
+├── item <- domain entity folder. In our case it is `Item`
+│   ├── components
+│   │   ├── details <- details page of item used for updating, deleting
+│   │   │   ├── details_component.js
+│   │   │   └── details.html
+│   │   ├── index.js
+│   │   ├── list    <- list page where all items are displayed 
+│   │   │   ├── list_component.js
+│   │   │   └── list.html
+│   │   └── new-item <- new item entry page  
+│   │       ├── new_item_component.js
+│   │       ├── new_item.html
+│   │       └── new_item.scss
+│   ├── index.js
+│   └── services <- purpose is simialar to backend's: common logic + integration with API
+│       ├── index.js
+│       └── item_list_service.js
+├── main_component.js
+├── main.html
+├── main_module.js
+└── routes.js
+
 
 ## Backend
 
@@ -71,11 +93,10 @@ Explanation of `lt.tieto.angular_spring_rest_demo.item` packages:
   They are responsible for routes mapping and invocation of services that does all the work.
 - `models` are classes that represent resources of API. They are just data holders that are returned by controllers.
   Models can have some `javax.validation` annotations
-- `services` are classes that performs all the business logic. In our case there is not much logic, 
+- `services` are classes that performs all the business logic. In our case there is not much logic and just mapping from database model, 
   but in real life scenario more complex calculations or data aggregation should be done in service.
   Most of the time services also perform mapping from repository models to API models however in some cases it might be useful to defined separate service models..
 - `repositories` are classes that interact with databases. It is a good practice to separate database model `DbModel` from API models
   because in more complex scenarios they tend to differ. SQL queries are implemented here. 
   Most commons queries like `findAll`, `findOne` are inherited.
   For custom queries `JdbcOperations` should be injected and used with already implemented `RowMapper`s
-- `mappers` are classes with static methods that perform data class mappings from one type to another.

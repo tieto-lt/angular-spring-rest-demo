@@ -1,21 +1,44 @@
 package lt.tieto.angular_spring_rest_demo.item.repository.model;
 
-import lombok.Builder;
-import lombok.Data;
-import lt.tieto.angular_spring_rest_demo.core.repository.model.DbModel;
+import lt.tieto.angular_spring_rest_demo.utils.repository.model.DbModel;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
-@Data
 public class ItemDb extends DbModel {
 
-    private final String name;
-    private final Integer quantity;
-    private final String size;
+    private String name;
+    private Integer quantity;
+    private String size;
 
-    @Builder
-    public ItemDb(Long id, String name, Integer quantity, String size) {
-        super(id);
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
         this.size = size;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("name", name)
+                .append("quantity", quantity)
+                .append("size", size)
+                .toString();
     }
 }

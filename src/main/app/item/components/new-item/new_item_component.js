@@ -28,7 +28,7 @@ Controller.$inject = ['$state', 'ItemService'];
 
 //You can also require SASS files related to this component
 require('./new_item.scss');
-module.component('itemListNewItem', {
+module.component('itemNew', {
     controller: Controller,
     templateUrl: require('./new_item.html')
 });

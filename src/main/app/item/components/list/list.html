@@ -1,6 +1,6 @@
 <div>
     <h1>Item List</h1>
-    <a class="btn btn-default" ui-sref="root.itemListNew">Create new item</a>
+    <a class="btn btn-default" ui-sref="root.itemNew">Create new item</a>
     <table class="table">
         <thead>
             <tr>
@@ -13,9 +13,9 @@
         </thead>
         <tbody>
             <tr ng-repeat="item in $ctrl.items">
-                <td>{{$index}}</td>
-                <td><a ui-sref="root.detailsItemList({ id: item.id })">{{item.id}}</a></td>
-                <td><a ui-sref="root.detailsItemList({ id: item.id })">{{item.name}}</a></td>
+                <td>{{$index + 1 }}</td>
+                <td><a ui-sref="root.ItemDetails({ id: item.id })">{{item.id}}</a></td>
+                <td><a ui-sref="root.ItemDetails({ id: item.id })">{{item.name}}</a></td>
                 <td>{{item.quantity}}</td>
                 <td>{{item.size}}</td>
             </tr>
