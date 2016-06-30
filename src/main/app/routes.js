@@ -11,16 +11,20 @@ module.config(function($stateProvider, $urlRouterProvider) {
     .state('root', {
       template: "<main></main>"
     })
+    .state('root.Login', {
+      url: "/login",
+      template: "<login></login>"
+    })
     .state('root.itemList', {
-        url: "/",
-        template: "<item-list></item-list>"
+      url: "/items",
+      template: "<item-list></item-list>"
     })
     .state('root.itemNew', {
-      url: "/new",
+      url: "/items/new",
       template: "<item-new></item-new>"
     })
     .state('root.ItemDetails', {
-      url: "/:id",
+      url: "/items/:id",
       template: "<item-details></item-details>"
     });
 });

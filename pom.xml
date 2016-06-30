@@ -21,6 +21,7 @@
         <lombok.version>1.16.8</lombok.version>
         <spring.data.jdbc.repository>0.5.0</spring.data.jdbc.repository>
         <h2.version>1.4.192</h2.version>
+        <spring.oauth.version>2.0.10.RELEASE</spring.oauth.version>
     </properties>
 
     <build>
@@ -111,6 +112,19 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security.oauth</groupId>
+            <artifactId>spring-security-oauth2</artifactId>
+            <version>${spring.oauth.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-jwt</artifactId>
         </dependency>
         <dependency>
             <groupId>org.liquibase</groupId>

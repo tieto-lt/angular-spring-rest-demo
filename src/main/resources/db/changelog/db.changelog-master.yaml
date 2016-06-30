@@ -22,3 +22,275 @@ databaseChangeLog:
               - column:
                   name: size
                   type: varchar(50)
+
+  - changeSet:
+      id: 2
+      author: tieto
+      changes:
+        - createTable:
+            tableName: oauth_client_details
+            columns:
+              - column:
+                  name: client_id
+                  type: varchar(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: resource_ids
+                  type: varchar(255)
+              - column:
+                  name: client_secret
+                  type: varchar(255)
+              - column:
+                  name: scope
+                  type: varchar(255)
+              - column:
+                  name: authorized_grant_types
+                  type: varchar(255)
+              - column:
+                  name: web_server_redirect_uri
+                  type: varchar(255)
+              - column:
+                  name: authorities
+                  type: varchar(255)
+              - column:
+                  name: access_token_validity
+                  type: int
+              - column:
+                  name: refresh_token_validity
+                  type: int
+              - column:
+                  name: additional_information
+                  type: varchar(4096)
+              - column:
+                  name: autoapprove
+                  type: varchar(255)
+
+  - changeSet:
+      id: 3
+      author: tieto
+      changes:
+        - createTable:
+            tableName: oauth_client_token
+            columns:
+              - column:
+                  name: authentication_id
+                  type: varchar(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: token
+                  type: blob
+              - column:
+                  name: token_id
+                  type: varchar(255)
+              - column:
+                  name: user_name
+                  type: varchar(255)
+              - column:
+                  name: client_id
+                  type: varchar(255)
+
+  - changeSet:
+      id: 4
+      author: tieto
+      changes:
+        - createTable:
+            tableName: oauth_access_token
+            columns:
+              - column:
+                  name: authentication_id
+                  type: varchar(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: token
+                  type: blob
+              - column:
+                  name: token_id
+                  type: varchar(255)
+              - column:
+                  name: user_name
+                  type: varchar(255)
+              - column:
+                  name: client_id
+                  type: varchar(255)
+              - column:
+                  name: authentication
+                  type: blob
+              - column:
+                  name: refresh_token
+                  type: varchar(255)
+
+  - changeSet:
+      id: 5
+      author: tieto
+      changes:
+        - createTable:
+            tableName: oauth_refresh_token
+            columns:
+              - column:
+                  name: token
+                  type: blob
+              - column:
+                  name: token_id
+                  type: varchar(255)
+              - column:
+                  name: authentication
+                  type: blob
+
+  - changeSet:
+      id: 6
+      author: tieto
+      changes:
+        - createTable:
+            tableName: oauth_code
+            columns:
+              - column:
+                  name: code
+                  type: varchar(255)
+
+  - changeSet:
+      id: 7
+      author: tieto
+      changes:
+        - createTable:
+            tableName: oauth_approvals
+            columns:
+              - column:
+                  name: userId
+                  type: varchar(255)
+              - column:
+                  name: clientId
+                  type: varchar(255)
+              - column:
+                  name: scope
+                  type: varchar(255)
+              - column:
+                  name: status
+                  type: varchar(255)
+              - column:
+                  name: expiresAt
+                  type: timestamp
+              - column:
+                  name: lastModifiedAt
+                  type: timestamp
+
+  - changeSet:
+      id: 8
+      author: tieto
+      changes:
+        - createTable:
+            tableName: ClientDetails
+            columns:
+              - column:
+                  name: appId
+                  type: varchar(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: resourceIds
+                  type: varchar(255)
+              - column:
+                  name: appSecret
+                  type: varchar(255)
+              - column:
+                  name: scope
+                  type: varchar(255)
+              - column:
+                  name: grantTypes
+                  type: varchar(255)
+              - column:
+                  name: redirectUrl
+                  type: varchar(255)
+              - column:
+                  name: authorities
+                  type: varchar(255)
+              - column:
+                  name: access_token_validity
+                  type: int
+              - column:
+                  name: refresh_token_validity
+                  type: int
+              - column:
+                  name: additionalInformation
+                  type: varchar(4096)
+              - column:
+                  name: autoApproveScopes
+                  type: varchar(255)
+
+  - changeSet:
+      id: 9
+      author: tieto
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  type: varchar(45)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(60)
+              - column:
+                  name: enabled
+                  type: boolean
+
+  - changeSet:
+      id: 10
+      author: tieto
+      changes:
+        - createTable:
+            tableName: authorities
+            columns:
+              - column:
+                  name: username
+                  type: varchar(255)
+              - column:
+                  name: authority
+                  type: varchar(45)
+
+        - addForeignKeyConstraint:
+            baseColumnNames: username
+            baseTableName: authorities
+            constraintName: fk_username_auth
+            referencedColumnNames: username
+            referencedTableName: users
+        - createIndex:
+            columns:
+              - column:
+                  name: username
+            tableName: authorities
+
+  - changeSet:
+      id: 11
+      author: tieto
+      changes:
+        - insert:
+            columns:
+            - column:
+                name: username
+                value: 'admin'
+            - column:
+                name: password
+                value: '$2a$10$goYUjJpDuhxXrFWO60lPkufOIEMoUQ9MmdkHYb2q6k0lVlEJH2Nve'
+            - column:
+                name: enabled
+                valueBoolean: true
+            tableName: users
+        - insert:
+            columns:
+            - column:
+                name: username
+                value: 'admin'
+            - column:
+                name: authority
+                value: 'ADMIN'
+            tableName: authorities
