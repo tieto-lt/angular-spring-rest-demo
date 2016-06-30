@@ -53,6 +53,7 @@ Consider an example when we are building some kind of user management page.
 Each folder in `app` should represent a business unit e.g `user-management`, `news-feed` etc.
 `app/user-management/components` should contain separate components for that page. 
 
+```
 .
 ├── app.js
 ├── item <- domain entity folder. In our case it is `Item`
@@ -76,7 +77,7 @@ Each folder in `app` should represent a business unit e.g `user-management`, `ne
 ├── main.html
 ├── main_module.js
 └── routes.js
-
+```
 
 ## Backend
 
