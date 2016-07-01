@@ -12,4 +12,7 @@
     <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="$ctrl.login()">
         Sign in
     </button>
+
+    <div class="alert alert-danger" role="alert" ng-show="$ctrl.error">{{$ctrl.error}}</div>
 </form>
+

@@ -21,11 +21,8 @@ function Service ($http, $httpParamSerializer, $cookies) {
                 $http.defaults.headers.common.Authorization= 'Bearer ' + data.data.access_token;
                 $cookies.put("access_token", data.data.access_token);
                 return data;
-            },
-            function (err) {
-                return err;
             });
-    };
+    }
 }
 
 Service.$inject = ['$http', '$httpParamSerializer', '$cookies'];

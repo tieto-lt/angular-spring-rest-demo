@@ -1,4 +1,4 @@
-module = require('main_module');
+var module = require('main_module');
 
 function Controller($state, $stateParams, ItemService) {
     //Controller body goes here
@@ -14,7 +14,7 @@ function Controller($state, $stateParams, ItemService) {
 
     vm.$onInit = function() {
         _loadItem();
-    }
+    };
 
     function update() {
         ItemService.update(vm.item).then(

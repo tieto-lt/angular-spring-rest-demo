@@ -1,4 +1,4 @@
-module = require('main_module');
+var module = require('main_module');
 
 var templateUrl = require('./main.html');
 require('main.scss');

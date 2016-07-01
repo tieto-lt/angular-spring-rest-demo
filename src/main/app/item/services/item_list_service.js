@@ -1,4 +1,4 @@
-module = require('main_module');
+var module = require('main_module');
 
 function Service ($http) {
 

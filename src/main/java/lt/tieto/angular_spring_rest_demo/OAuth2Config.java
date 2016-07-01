@@ -32,7 +32,9 @@ public class OAuth2Config implements AuthorizationServerConfigurer, ResourceServ
 
     @Bean
     public JwtAccessTokenConverter accessTokenConverter() {
-        return new JwtAccessTokenConverter();
+        JwtAccessTokenConverter c = new JwtAccessTokenConverter();
+        c.setSigningKey("superrandomsigningkey");
+        return c;
     }
 
     @Override
