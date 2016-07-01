@@ -34,7 +34,7 @@ run() {
     mvn spring-boot:run
 }
 
-}gitInfo() {
+gitInfo() {
     cd $(dirname $0)
     echo ""
     echo "    branch name  : $(git rev-parse --abbrev-ref HEAD)"
