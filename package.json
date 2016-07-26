@@ -23,9 +23,11 @@
     "webpack": "^1.13.1"
   },
   "dependencies": {
-    "angular": "^1.5.6",
+    "angular": "^1.5.7",
+    "angular-cookies": "^1.5.7",
+    "angular-jwt": "0.0.9",
     "angular-messages": "^1.5.7",
-    "angular-ui-router": "^1.0.0-alpha.5",
+    "angular-ui-router": "^1.0.0-beta.1",
     "bootstrap": "^3.3.6"
   }
 }

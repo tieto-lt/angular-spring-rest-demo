@@ -22,3 +22,124 @@ databaseChangeLog:
               - column:
                   name: size
                   type: varchar(50)
+
+  - changeSet:
+      id: 2
+      author: tieto
+      changes:
+        - createTable:
+            tableName: oauth_access_token
+            columns:
+              - column:
+                  name: authentication_id
+                  type: varchar(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: token
+                  type: blob
+              - column:
+                  name: token_id
+                  type: varchar(255)
+              - column:
+                  name: user_name
+                  type: varchar(255)
+              - column:
+                  name: client_id
+                  type: varchar(255)
+              - column:
+                  name: authentication
+                  type: blob
+              - column:
+                  name: refresh_token
+                  type: varchar(255)
+
+  - changeSet:
+      id: 3
+      author: tieto
+      changes:
+        - createTable:
+            tableName: oauth_refresh_token
+            columns:
+              - column:
+                  name: token
+                  type: blob
+              - column:
+                  name: token_id
+                  type: varchar(255)
+              - column:
+                  name: authentication
+                  type: blob
+
+  - changeSet:
+      id: 4
+      author: tieto
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  type: varchar(45)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(60)
+              - column:
+                  name: enabled
+                  type: boolean
+
+  - changeSet:
+      id: 5
+      author: tieto
+      changes:
+        - createTable:
+            tableName: authorities
+            columns:
+              - column:
+                  name: username
+                  type: varchar(255)
+              - column:
+                  name: authority
+                  type: varchar(45)
+
+        - addForeignKeyConstraint:
+            baseColumnNames: username
+            baseTableName: authorities
+            constraintName: fk_username_auth
+            referencedColumnNames: username
+            referencedTableName: users
+        - createIndex:
+            columns:
+              - column:
+                  name: username
+            tableName: authorities
+
+  - changeSet:
+      id: 6
+      author: tieto
+      changes:
+        - insert:
+            columns:
+            - column:
+                name: username
+                value: 'admin'
+            - column:
+                name: password
+                value: '$2a$10$goYUjJpDuhxXrFWO60lPkufOIEMoUQ9MmdkHYb2q6k0lVlEJH2Nve'
+            - column:
+                name: enabled
+                valueBoolean: true
+            tableName: users
+        - insert:
+            columns:
+            - column:
+                name: username
+                value: 'admin'
+            - column:
+                name: authority
+                value: 'ADMIN'
+            tableName: authorities

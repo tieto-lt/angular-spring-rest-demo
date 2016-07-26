@@ -1,4 +1,4 @@
-module = require('main_module');
+var module = require('main_module');
 
 function Controller(ItemService) {
     //Convention to call controller instance 'vm'
@@ -8,7 +8,7 @@ function Controller(ItemService) {
 
     vm.$onInit = function() {
         _loadList();
-    }
+    };
 
     //Underscore because private function which is not exposed in controller interface
     function _loadList() {
